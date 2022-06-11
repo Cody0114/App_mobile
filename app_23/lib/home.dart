@@ -13,8 +13,8 @@ String dropButton = "";
 
 class _HomePageState extends State<HomePage> {
   File file;
-    TextEditingController nomeController = TextEditingController();
-    String dropdownArea = 'Não declarado';
+  TextEditingController nomeController = TextEditingController();
+  String dropdownArea = 'Não declarado';
 
   get child => null;
 
@@ -34,19 +34,18 @@ class _HomePageState extends State<HomePage> {
                     "assets/images/camera.png",
                     height: 150,
                   ),
-                  _botaoCamera(),
-                  _botaoGaleria(),
+            _botaoCamera(),
+            _botaoGaleria(),
             _nome(),
             _dropdownArea(),
             _salvar()
-
           ],
         ),
       ),
     );
   }
 
-   _botaoCamera() {
+  _botaoCamera() {
     return Padding(
       padding: EdgeInsets.only(top: 20.0, bottom: 35.0),
       child: Container(
@@ -90,7 +89,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-   _dropdownArea() {
+  _dropdownArea() {
     return DropdownButton<String>(
       value: dropdownArea,
       icon: const Icon(Icons.arrow_downward),
@@ -119,31 +118,28 @@ class _HomePageState extends State<HomePage> {
   _recuperarBancoDados() async {
     final caminhoBancoDados = await getDatabasesPath();
     final localBancoDados = join(caminhoBancoDados, "banco.db");
- 
+
     var bd = await openDatabase(localBancoDados, version: 1,
         onCreate: (db, dbVersaoRecente) {
       String sql =
           "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, area INTEGER) ";
       db.execute(sql);
     });
- 
+
     return bd;
     //print("aberto: " + bd.isOpen.toString() );
   }
 
   _salvar() async {
-     Database bd = await _recuperarBancoDados();
- 
+    Database bd = await _recuperarBancoDados();
+
     Map<String, dynamic> dadosUsuario = {
-      "nome": "Leticia Rodrigues",
-      "idade": 23,
+      "nome": "Caique Alves",
+      "idade": 21,
     };
     int id = await bd.insert("usuarios", dadosUsuario);
     print("Salvo: $id ");
-
   }
-
-
 
   void _getImagemFromCamera() async {
     File foto =
